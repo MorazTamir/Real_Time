@@ -9,12 +9,26 @@ from facenet_pytorch import MTCNN
 import torch
 from PIL import Image, ImageTk
 import shutil
+import pyttsx3
+import time
+from threading import Thread
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 mtcnn = MTCNN(keep_all=True, device=device)
 
 # Global variable for people directory
 people_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'people'))
+
+# Initialize text-to-speech engine
+engine = pyttsx3.init()
+
+# Dictionary to keep track of the last time each person was greeted
+last_greeted = {}
+
+# Function to speak a greeting asynchronously
+def speak_greeting(name):
+    engine.say(f"Hello {name}")
+    engine.runAndWait()
 
 # Skin Color Extraction Function
 def extract_skin_color(image):
@@ -58,6 +72,7 @@ def load_known_encodings(folder):
 # Recognize and label faces in a frame
 def recognize_and_label_faces(frame, face_locations, face_encodings, known_encodings, known_filenames):
     recognized_names = []
+    current_time = time.time()
     for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
         matches = fr.compare_faces(known_encodings, face_encoding, tolerance=0.55)
         name = "Unknown"
@@ -73,6 +88,12 @@ def recognize_and_label_faces(frame, face_locations, face_encodings, known_encod
             name_width, _ = cv.getTextSize(name, cv.FONT_HERSHEY_DUPLEX, 0.5, 1)[0]
             cv.rectangle(frame, (expanded_left, expanded_bottom - 20), (expanded_left + name_width + 12, expanded_bottom + 4), (0, 255, 0), cv.FILLED)
             cv.putText(frame, name, (expanded_left + 6, expanded_bottom), cv.FONT_HERSHEY_DUPLEX, 0.4, (0, 0, 0), 1)
+            
+            # Greet the person if they haven't been greeted recently
+            if name not in last_greeted or current_time - last_greeted[name] > 60:
+                Thread(target=speak_greeting, args=(name,)).start()
+                last_greeted[name] = current_time
+    
     return recognized_names
 
 # Process frame for face recognition
