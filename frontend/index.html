@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Face Recognition System</title>
+    <link rel="stylesheet" href="static/styles.css" />
+    <script src="static/scripts.js"></script>
+  </head>
+  <body>
+    <header>
+      <div id="demotext">
+        <h1>Real-Time</h1>
+        <h2>Face Recognition System</h2>
+      </div>
+    </header>
+    <main>
+      <section id="info-container">
+        <h3>About the System</h3>
+        <p>
+          Following operational events such as the "Iron Swords" conflict, the
+          critical need for rapid and accurate identification of soldiers and
+          civilians in the field became evident. Our system enables real-time
+          face recognition for both live video feeds and pre-recorded footage.
+          It analyzes facial features from the video and compares them to a
+          pre-stored image database, ensuring quick and accurate identification
+          even under varying conditions.
+        </p>
+      </section>
+
+      <section id="options-container">
+        <h3>Manage Face Database</h3>
+        <button class="btn" id="addPhotoButton">Add New Person</button>
+
+        <h3>Select Recognition Mode</h3>
+        <label>
+          <input type="radio" name="mode" value="realtime" checked />
+          Real-Time
+        </label>
+        <label>
+          <input type="radio" name="mode" value="video" />
+          Video File
+        </label>
+
+        <section id="file-upload" style="display: none">
+          <h4>Upload Video for Recognition</h4>
+          <input type="file" id="fileInput" accept="video/*" />
+          <button class="btn" id="uploadButton">Upload</button>
+        </section>
+
+        <section id="results">
+          <h3>Recognition Results</h3>
+          <div id="resultContainer"></div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
