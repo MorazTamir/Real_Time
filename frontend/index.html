@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Real-Time Face Recognition System</title>
     <link rel="stylesheet" href="static/styles.css" />
-    <script src="static/scripts.js"></script>
+    <script src="static/scripts.js" defer></script>
   </head>
   <body>
     <header>
@@ -15,6 +15,7 @@
       </div>
     </header>
     <main>
+      <!-- Box 1 - System Information -->
       <section id="info-container">
         <h3>About the System</h3>
         <p>
@@ -26,32 +27,98 @@
           pre-stored image database, ensuring quick and accurate identification
           even under varying conditions.
         </p>
+        <div id="links">
+          <a
+            href="https://github.com/MorazTamir/Real_Time"
+            class="link-icon"
+            target="_blank"
+          >
+            <img
+              src="static/images/gitLogo.jpeg"
+              alt="GitHub Logo"
+              class="logo-image"
+            />
+            <div class="logo-caption">GitHub</div>
+          </a>
+          <a
+            href="https://docs.google.com/presentation/d/1YD7R9SvBBYvsZ_J991cwflUKydbzXr_U/edit?usp=sharing&ouid=101037746141897944436&rtpof=true&sd=true"
+            class="link-icon"
+            target="_blank"
+          >
+            <img
+              src="static/images/RealTimeLogo.png"
+              alt="PPT Logo"
+              class="logo-image"
+            />
+            <div class="logo-caption">PPT</div>
+          </a>
+          <a
+            href="https://morazt2.wixsite.com/realtime"
+            class="link-icon"
+            target="_blank"
+          >
+            <img
+              src="static/images/background2.jpg"
+              alt="Poster Logo"
+              class="logo-image"
+            />
+            <div class="logo-caption">Poster</div>
+          </a>
+        </div>
       </section>
 
-      <section id="options-container">
-        <h3>Manage Face Database</h3>
-        <button class="btn" id="addPhotoButton">Add New Person</button>
+      <!-- Box 2 - Database Management -->
+      <section id="image-container">
+        <h3>Database</h3>
+        <div id="database-container">
+          <div id="database-controls">
+            <button class="btn" id="prevImageButton">‹</button>
+            <div id="database-image">
+              <img
+                id="databaseImage"
+                src="static/images/default-image.jpg"
+                alt="Database Image"
+              />
+            </div>
+            <button class="btn" id="nextImageButton">›</button>
+          </div>
+          <div id="image-name">
+            <p id="databaseName">Name</p>
+          </div>
+          <div id="search-container">
+            <input type="text" id="searchBox" placeholder="Search by name..." />
+            <button class="btn" id="searchButton">Search</button>
+            <div id="searchResult" class="search-result">
+              <!-- The "Not found" message will appear here if no results are found -->
+            </div>
+          </div>
+        </div>
+        <button class="btn" id="addPhotoButton">Add Person</button>
+      </section>
 
-        <h3>Select Recognition Mode</h3>
-        <label>
-          <input type="radio" name="mode" value="realtime" checked />
-          Real-Time
-        </label>
-        <label>
-          <input type="radio" name="mode" value="video" />
-          Video File
-        </label>
+      <!-- Box 3 - Video Mode Selection and Display -->
+      <section id="video-options-section">
+        <div id="video-options">
+          <h3>Select Recognition Mode</h3>
+          <label>
+            <input type="radio" name="mode" value="realtime" />
+            Real-Time
+          </label>
+          <label>
+            <input type="radio" name="mode" value="video" />
+            Video File
+          </label>
 
-        <section id="file-upload" style="display: none">
-          <h4>Upload Video for Recognition</h4>
-          <input type="file" id="fileInput" accept="video/*" />
-          <button class="btn" id="uploadButton">Upload</button>
-        </section>
+          <section id="file-upload" style="display: none">
+            <h4>Upload Video for Recognition</h4>
+            <input type="file" id="fileInput" accept="video/*" />
+            <button class="btn" id="uploadButton">Upload</button>
+          </section>
+        </div>
 
-        <section id="results">
-          <h3>Recognition Results</h3>
-          <div id="resultContainer"></div>
-        </section>
+        <div id="video-screen">
+          <!-- Video or analysis results will be displayed here -->
+        </div>
       </section>
     </main>
   </body>

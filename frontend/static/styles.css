@@ -2,8 +2,6 @@ body {
   font-family: Verdana, sans-serif;
   margin: 0;
   padding: 0;
-
-  /* תמונת רקע */
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.231),
       rgba(255, 255, 255, 0.237)
@@ -18,63 +16,76 @@ body {
 header {
   background-color: rgba(151, 15, 185, 0);
   color: white;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   position: relative;
   z-index: 1;
 }
+
 #demotext {
   text-shadow: 1px 3px 0 #969696, 1px 7px 5px #aba8a8,
     10px 7px 9px rgba(143, 113, 206, 0.28);
-  font-size: 120%; /* מגדיל את הגודל פי 3 מהגודל הרגיל */
+  font-size: 130%; /* מגדיל את הגודל פי 3 מהגודל הרגיל */
   font-weight: bold; /* מוודא שהכותרת תהיה בולטת */
   color: #f8f8f8; /* מגדיר צבע לכותרת */
 }
+
 main {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
-  align-items: stretch; /* מבטיח שהתיבות יהיו באותו גובה */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* מגדיר שתי עמודות */
+  grid-template-rows: auto auto; /* מגדיר שתי שורות */
+  gap: 20px;
+  width: 80%; /* מצמצם את הרוחב הכולל של התיבות */
+  max-width: 1000px; /* מגביל את הרוחב המקסימלי */
+  margin: 20px auto; /* ממקם את התיבות במרכז המסך */
 }
 
+/* עיצוב לתיבות מידע עם תכנים */
 #info-container,
-#options-container {
-  flex: 1;
+#image-container,
+#video-options-section {
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.858);
+  background-color: rgba(255, 255, 255, 0.689);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center; /* מרכז את התוכן אופקית */
-  text-align: center; /* מרכז את הטקסט בתוך התיבה */
+  align-items: center;
 }
 
+/* עיצוב לתיבת המידע */
 #info-container {
-  margin-right: 20px;
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  justify-content: flex-start; /* מתחיל את התוכן מהחלק העליון */
 }
 
-#info-container h2 {
-  margin-top: 0;
-  font-size: 1.5em; /* גודל טקסט גדול יותר לתיבה השמאלית */
+/* עיצוב לתיבת התמונות */
+#image-container {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
 }
 
-#options-container {
-  margin-left: 20px;
+/* עיצוב לחלק אפשרויות הווידאו */
+#video-options-section {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 1;
+  display: flex;
+  justify-content: space-between; /* מרווח בין האלמנטים */
+  align-items: center; /* מיישר את האלמנטים לגובה אחיד */
 }
 
-#options-container h2 {
-  margin-top: 0;
+/* עיצוב למסך הווידאו */
+#video-screen {
+  width: 300px; /* קובע את רוחב הריבוע */
+  height: 300px; /* קובע את גובה הריבוע */
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
-#recognition-options,
-#file-upload,
-#results {
-  margin-bottom: 20px;
-}
-
+/* עיצוב לכפתורים */
 .btn {
   --fancy-button-gradient-0: #8d49fd;
   --fancy-button-gradient-50: #7f56f3;
@@ -164,58 +175,95 @@ main {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 50%;
   background-color: var(--fancy-button-shine-bottom);
-  transition: opacity 0.25s, transform 0.25s;
-  will-change: transform;
+  width: 150px;
+  height: 24px;
+  bottom: -24px;
+  filter: blur(24px);
+  transition: opacity 0.25s;
 }
 
-.btn span:before {
-  width: 92px;
-  height: 8px;
-  bottom: -4px;
-  opacity: 0.75;
-  filter: blur(6px);
+.btn:active:before {
+  opacity: 0.32;
 }
 
-.btn span:after {
-  width: 112px;
-  height: 1px;
-  bottom: 0;
-  opacity: 0.9;
-  filter: blur(1px);
-}
-
-.btn:hover span:before {
-  opacity: 0.8;
-}
-
-.btn:hover span:before {
-  transform: translateX(-50%) scale(1.25);
-}
-
-.btn:hover span:after {
-  opacity: 1;
-}
-
-#upload-section {
+/* עיצוב לקישורים */
+#links {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* מרכז את התוכן בתיבה */
+  justify-content: space-around; /* Adjust spacing between items */
+  margin-top: 20px;
+}
+
+.link-icon {
+  display: flex; /* Changed to flex to align image and caption vertically */
+  flex-direction: column; /* Align items vertically */
+  align-items: center; /* Center items horizontally */
+  text-decoration: none;
+  margin: 0 30px; /* Increased horizontal margin for spacing */
+}
+
+.link-icon:hover .logo-image {
+  background-color: #aaa; /* Change background color on hover */
+}
+
+.logo-image {
+  width: 40px; /* Reduce image size */
+  height: 40px;
+  border-radius: 50%;
+}
+
+.logo-caption {
+  font-size: 14px; /* Adjust font size for caption */
+  color: #333; /* Set color for the caption text */
+  text-align: center;
+  margin-top: 5px; /* Space between image and caption */
+}
+
+/* עיצוב לתיבת מאגר התמונות */
+#database-container {
+  text-align: center;
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#upload-section button {
-  margin-top: 0; /* ביטול margin-top אם היה קודם */
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+#database-container h3 {
+  margin-top: 0; /* הכותרת תהיה למעלה */
+  margin-bottom: 10px;
+}
+
+/* עיצוב לתמונה בתיבת מאגר התמונות */
+#database-image {
+  width: 250px; /* Increased image size */
+  height: 250px;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px; /* Increased space below the image */
+}
+
+#database-controls {
+  display: flex;
+  justify-content: space-between; /* חצים בצדדים */
+  align-items: center;
+  width: 100%; /* מוודא שהכפתורים ממלאים את הרוחב של הקונטיינר */
+}
+
+#database-controls button {
+  background-color: #888;
+  color: #fff;
   border: none;
+  padding: 10px;
+  margin: 0;
   cursor: pointer;
-  border-radius: 5px;
 }
 
-#fileInput {
-  margin-right: 10px;
-  font-family: "Verdana";
+#database-controls button:hover {
+  background-color: #555;
+}
+
+#search-result {
+  color: red;
+  margin-top: 10px; /* Increased space above the alert */
 }
