@@ -2,13 +2,11 @@ import os
 from gui import start_gui
 from Face_Recog import load_known_encodings
 
-# Constants
-DATA_DIRECTORY_NAME = 'people'
-
+DATAֹ_FOLDER = 'people'
 # Main function
 def main():
     # Load known encodings
-    people_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', DATA_DIRECTORY_NAME))
+    people_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', DATAֹ_FOLDER))
     known_encodings, known_filenames = load_known_encodings(people_directory)
     
     # Start GUI
@@ -16,3 +14,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
